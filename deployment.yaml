@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-assessment-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-assessment
+  template:
+    metadata:
+      labels:
+        app: devops-assessment
+    spec:
+      containers:
+      - name: web-app
+        image: devops-assessment-web:v1.0.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-assessment-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: devops-assessment

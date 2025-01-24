@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: devops-assessment-prometheus
+spec:
+  serviceAccountName: prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      app: devops-assessment
+  resources:
+    requests:
+      memory: 400Mi
+  enableAdminAPI: false
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: devops-assessment-servicemonitor
+  labels:
+    app: devops-assessment
+spec:
+  selector:
+    matchLabels:
+      app: devops-assessment
+  endpoints:
+  - port: web
+    interval: 15s
+    path: /metrics
