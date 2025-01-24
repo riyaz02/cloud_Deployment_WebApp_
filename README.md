@@ -19,7 +19,7 @@ Deploy a web application in a cloud-based k8s
 │   ├── deployment.yaml
 │   └── prometheus.yaml
 ├── terraform
-│   └── terraform_config.tf
+│   └── main.tf
 └── README.md
 ```
 
